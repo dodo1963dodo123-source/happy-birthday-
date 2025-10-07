@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🌷🍰 Happy Birthday!</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+      font-family: 'Comic Sans MS', cursive;
+      position: relative;
+    }
+
+    h1 {
+      color: #fff;
+      font-size: 3rem;
+      text-shadow: 2px 2px 6px #000;
+      animation: floatText 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatText {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-10px); }
+    }
+
+    .cake {
+      position: relative;
+      width: 200px;
+      height: 150px;
+      background: #f9a8d4;
+      border-radius: 0 0 20px 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .cake:hover {
+      transform: scale(1.05);
+    }
+
+    .layer {
+      position: absolute;
+      width: 100%;
+      height: 40px;
+      background: #f472b6;
+      border-radius: 10px;
+    }
+
+    .layer.top { top: 0; background: #f9a8d4; }
+    .layer.middle { top: 50px; background: #ec4899; }
+    .layer.bottom { top: 100px; background: #db2777; }
+
+    .candle {
+      position: absolute;
+      top: -50px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 20px;
+      height: 50px;
+      background: #fff;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    }
+
+    .flame {
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 15px;
+      height: 15px;
+      background: radial-gradient(circle, #fff59d 40%, #facc15 60%, #f97316 100%);
+      border-radius: 50%;
+      animation: flicker 0.2s infinite alternate;
+    }
+
+    @keyframes flicker {
+      0% { transform: translateX(-50%) scale(1); opacity: 1; }
+      100% { transform: translateX(-50%) scale(1.1); opacity: 0.8; }
+    }
+
+    .confetti, .sparkle {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .confetti div, .sparkle div {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: hsl(var(--hue), 100%, 60%);
+      animation: fall 3s linear infinite;
+      border-radius: 50%;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-10px) rotate(0deg); }
+      100% { transform: translateY(100vh) rotate(360deg); }
+    }
+
+    .click-emoji {
+      position: absolute;
+      font-size: 2.5rem;
+      animation: floatUp 2s ease-out forwards;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-100px) scale(1.5); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <h1>🌷🍰 Happy Birthday! 🌷🍰</h1>
+  <div class="cake" onclick="blowCandle()">
+    <div class="layer top"></div>
+    <div class="layer middle"></div>
+    <div class="layer bottom"></div>
+    <div class="candle">
+      <div class="flame" id="flame"></div>
+    </div>
+  </div>
+  <div class="confetti" id="confetti"></div>
+
+  <script>
+    const confettiContainer = document.getElementById('confetti');
+    for (let i = 0; i < 50; i++) {
+      const c = document.createElement('div');
+      c.style.left = Math.random() * 100 + '%';
+      c.style.setProperty('--hue', Math.random() * 360);
+      c.style.animationDelay = Math.random() * 3 + 's';
+      confettiContainer.appendChild(c);
+    }
+
+    function blowCandle() {
+      const flame = document.getElementById('flame');
+      flame.style.display = 'none';
+      alert('🎂 You blew out the candle! Make a wish! 🌷🍰');
+    }
+
+    // When clicking anywhere on the screen, show 🌷🍰 emojis floating
+    document.addEventListener('click', function(e) {
+      const emoji = document.createElement('div');
+      emoji.classList.add('click-emoji');
+      emoji.textContent = Math.random() > 0.5 ? '🌷' : '🍰';
+      emoji.style.left = e.clientX + 'px';
+      emoji.style.top = e.clientY + 'px';
+      emoji.style.color = `hsl(${Math.random() * 360}, 80%, 60%)`;
+      document.body.appendChild(emoji);
+      setTimeout(() => emoji.remove(), 2000);
+    });
+  </script>
+</body>
+</html>
